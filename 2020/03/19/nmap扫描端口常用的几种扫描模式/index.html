@@ -79,33 +79,15 @@
 
 
 
-<meta name="description" content="DC-6Author:Xingg wpscan搜集用户名，爆破进入后台，后台漏洞组件获取webshell，备忘录获取用户账号密码，sudo nmap提权root">
+<meta name="description" content="从TCP&#x2F;IP原理分析nmap的常见扫描模式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="DC-6">
-<meta property="og:url" content="http://yoursite.com/2020/03/17/DC-6/index.html">
+<meta property="og:title" content="nmap扫描端口常用的几种扫描模式">
+<meta property="og:url" content="http://yoursite.com/2020/03/19/nmap%E6%89%AB%E6%8F%8F%E7%AB%AF%E5%8F%A3%E5%B8%B8%E7%94%A8%E7%9A%84%E5%87%A0%E7%A7%8D%E6%89%AB%E6%8F%8F%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="Xingg&#39;s Blog">
-<meta property="og:description" content="DC-6Author:Xingg wpscan搜集用户名，爆破进入后台，后台漏洞组件获取webshell，备忘录获取用户账号密码，sudo nmap提权root">
+<meta property="og:description" content="从TCP&#x2F;IP原理分析nmap的常见扫描模式">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119104310447.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119104345582.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119104359138.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119104411576.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2020011910442667.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2020011910443674.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119104449148.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119104458980.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119104512457.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119104520299.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119104531956.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119104545153.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119104553572.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119104613843.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119104621222.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119104631915.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119104645388.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200119104704750.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
-<meta property="article:published_time" content="2020-03-16T22:27:19.000Z">
-<meta property="article:modified_time" content="2020-03-17T14:31:25.830Z">
+<meta property="article:published_time" content="2020-03-19T08:36:29.000Z">
+<meta property="article:modified_time" content="2020-03-19T08:40:01.090Z">
 <meta property="article:author" content="Xingg">
 <meta property="article:tag" content="vulnhub">
 <meta property="article:tag" content="HTB">
@@ -113,7 +95,6 @@
 <meta property="article:tag" content="web安全">
 <meta property="article:tag" content="渗透测试">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200119104310447.png">
 
 
 
@@ -143,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/03/17/DC-6/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/03/19/nmap扫描端口常用的几种扫描模式/"/>
 
 
 
 
 
-  <title>DC-6 | Xingg's Blog</title>
+  <title>nmap扫描端口常用的几种扫描模式 | Xingg's Blog</title>
   
 
 
@@ -266,7 +247,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/17/DC-6/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/19/nmap%E6%89%AB%E6%8F%8F%E7%AB%AF%E5%8F%A3%E5%B8%B8%E7%94%A8%E7%9A%84%E5%87%A0%E7%A7%8D%E6%89%AB%E6%8F%8F%E6%A8%A1%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Xingg">
@@ -283,7 +264,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">DC-6</h1>
+          <h1 class="post-title" itemprop="name headline">nmap扫描端口常用的几种扫描模式</h1>
         
 
         <div class="post-meta">
@@ -295,8 +276,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-17T06:27:19+08:00">
-                2020-03-17
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-19T16:36:29+08:00">
+                2020-03-19
               </time>
             
 
@@ -318,8 +299,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9D%B6%E6%9C%BA-vulnhub/" itemprop="url" rel="index">
-                    <span itemprop="name">靶机-vulnhub</span>
+                  <a href="/categories/kali%E4%B8%8B%E7%9A%84%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index">
+                    <span itemprop="name">kali下的工具</span>
                   </a>
                 </span>
 
@@ -355,13 +336,54 @@
       
 
       
-        <h1 id="DC-6"><a href="#DC-6" class="headerlink" title="DC-6"></a>DC-6</h1><p><strong>Author:Xingg</strong></p>
-<p>wpscan搜集用户名，爆破进入后台，后台漏洞组件获取webshell，备忘录获取用户账号密码，sudo nmap提权root</p>
+        <p>从TCP/IP原理分析nmap的常见扫描模式</p>
 <a id="more"></a>
 
-<p>靶机地址：<a href="https://www.vulnhub.com/entry/dc-6,315/" target="_blank" rel="noopener">https://www.vulnhub.com/entry/dc-6,315/</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap –sS –sV –p- -T5</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/20200119104310447.png" alt="在这里插入图片描述"><br>dirb跑一下，全是wp的目录<br><img src="https://img-blog.csdnimg.cn/20200119104345582.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>上wpscan<br><img src="https://img-blog.csdnimg.cn/20200119104359138.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>改一下hosts<br>加一条 192.168.49.20 wordy<br>没有发现漏洞 发现几个用户<br><img src="https://img-blog.csdnimg.cn/20200119104411576.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>逐一爆破吧<br>开开心心爆了半个小时，进度0.1%，这么多用户感觉爆破思路不会错，看了一眼师傅的wp，原来作者在vulnhub题目中给了提示的<br><img src="https://img-blog.csdnimg.cn/2020011910442667.png" alt="在这里插入图片描述"><br>再爆就只要3分钟，拿到一个用户<br>mark:helpdesk01<br><img src="https://img-blog.csdnimg.cn/2020011910443674.png" alt="在这里插入图片描述"><br>进到后台找了半天，普通用户无法编辑后台，没有头绪。看了下漏洞库，刚好后台有个功能与之对应<br><img src="https://img-blog.csdnimg.cn/20200119104449148.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200119104458980.png" alt="在这里插入图片描述"><br>测试一下exp 命令注入很直接 修改一下exp的内容<br><img src="https://img-blog.csdnimg.cn/20200119104512457.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200119104520299.png" alt="在这里插入图片描述"><br>拿到shell，尝试提权<br>提权脚本跑了半天没跑出结果，在/home里找到了mark的备忘录<br><img src="https://img-blog.csdnimg.cn/20200119104531956.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>用graham:GSo7isUM1D4连接ssh<br>查看sudo -l<br><img src="https://img-blog.csdnimg.cn/20200119104545153.png" alt="在这里插入图片描述"><br>graham可以执行jens的文件<br><img src="https://img-blog.csdnimg.cn/20200119104553572.png" alt="在这里插入图片描述"><br>这是一个可执行文件，我们在里面写一个/bin/sh就能够跳到jens的用户权限<br><img src="https://img-blog.csdnimg.cn/20200119104613843.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200119104621222.png" alt="在这里插入图片描述"><br>切换到用户jens<br>继续查看sudo –l<br><img src="https://img-blog.csdnimg.cn/20200119104631915.png" alt="在这里插入图片描述"><br>jens可以使用root的nmap<br>nmap是可以–script执行自定义插件的，我们写一个nse<br><img src="https://img-blog.csdnimg.cn/20200119104645388.png" alt="在这里插入图片描述"><br>执行<br>再输一遍python -c “import pty;pty.spawn(‘/bin/bash’);”<br><img src="https://img-blog.csdnimg.cn/20200119104704750.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>欢迎师傅们指点  </p>
+<h1 id="TCP-IP中端口建立连接的原则"><a href="#TCP-IP中端口建立连接的原则" class="headerlink" title="TCP/IP中端口建立连接的原则"></a>TCP/IP中端口建立连接的原则</h1><p>在TCP/IP协议中，TCP协议提供可靠连接，采用三次握手建立连接，四次挥手断开连接。<br><strong>三次握手</strong></p>
+<ol>
+<li>client发送SNY，请求建立连接</li>
+<li>server收到SNY，发送ACK确认，同时自己也发送一个SNY，即ACK+SYN</li>
+<li>client收到ACK+SYN,回复ACK，连接建立完成。</li>
+</ol>
+<p>##<br><strong>四次挥手</strong></p>
+<ol>
+<li>client发送FIN，请求释放连接</li>
+<li>server收到FIN，发送ACK</li>
+<li>server发送FIN，告知释放连接</li>
+<li>client收到FIN，发送ACK</li>
+</ol>
+<p><strong>TCP/IP实现遵循原则</strong> </p>
+<ol>
+<li>发送SYN，LISTEN端口回复ACK，CLOSED端口回复RST</li>
+<li>发送RST会被直接丢弃 </li>
+<li>发送ACK给LISTEN端口，回复RST </li>
+<li>发送FIN，LISTEN端口丢弃，CLOSED端口回复RST</li>
+</ol>
+<h1 id="全连接扫描（TCP-connect-scan）"><a href="#全连接扫描（TCP-connect-scan）" class="headerlink" title="全连接扫描（TCP connect scan）"></a>全连接扫描（TCP connect scan）</h1><pre><code>1. 发送SYN 
+2. 回复ACK则是LISTEN，回复RST则CLOSED
+3. 回复ACK</code></pre><p>特点：容易被察觉</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sT</span><br></pre></td></tr></table></figure>
+
+<h1 id="半开放SYN扫描（TCP-SYN-scan）"><a href="#半开放SYN扫描（TCP-SYN-scan）" class="headerlink" title="半开放SYN扫描（TCP SYN scan）"></a>半开放SYN扫描（TCP SYN scan）</h1><p>发送SYN<br>    1. 回复ACK+SYN 则LISTEN<br>    2. 回复RST 则CLOSED<br>    3. 不回复 则过滤了</p>
+<p>特点：<br>    1. 应用程序没有日志<br>    2. 容易被发现</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sS</span><br></pre></td></tr></table></figure>
+
+<h1 id="隐蔽扫描"><a href="#隐蔽扫描" class="headerlink" title="隐蔽扫描"></a>隐蔽扫描</h1><h2 id="ACK扫描"><a href="#ACK扫描" class="headerlink" title="ACK扫描"></a>ACK扫描</h2><p>发送ACK<br>    1. LISTEN端口回复RST<br>    2. CLOSED端口丢弃</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sA</span><br></pre></td></tr></table></figure>
+
+<h2 id="FIN扫描"><a href="#FIN扫描" class="headerlink" title="FIN扫描"></a>FIN扫描</h2><p>发送FIN<br>    1. LISTEN端口丢弃<br>    2. CLOSED端口回复RST<br>特点：扫描效率低，需要等待超时</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sF</span><br></pre></td></tr></table></figure>
+
+<h2 id="TCP-Xmas扫描（圣诞树）"><a href="#TCP-Xmas扫描（圣诞树）" class="headerlink" title="TCP Xmas扫描（圣诞树）"></a>TCP Xmas扫描（圣诞树）</h2><p>发送FIN+URG+PSH（原理同FIN）<br>    1. LISTEN端口丢弃<br>    2. CLOSED端口回复RST<br>特点：扫描效率低，需要等待超时，不能适用所有系统</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sX</span><br></pre></td></tr></table></figure>
+
+<h2 id="TCP-NULL扫描"><a href="#TCP-NULL扫描" class="headerlink" title="TCP NULL扫描"></a>TCP NULL扫描</h2><p>发送NULL（原理同FIN）<br>    1. LISTEN端口丢弃<br>    2. CLOSED端口回复RST<br>特点：扫描效率低，需要等待超时，不能适用所有系统</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sN</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="UDP扫描"><a href="#UDP扫描" class="headerlink" title="UDP扫描"></a>UDP扫描</h1><p>发送UDP包<br>返回ICMP_PORT_UNREACH为关闭，否则打开<br>特点：<br>    1. 不可靠<br>    2. 目标可以禁止UDP</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sU</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -386,8 +408,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/03/17/DC-5/" rel="next" title="DC-5">
-                <i class="fa fa-chevron-left"></i> DC-5
+              <a href="/2020/03/18/HTB_Devel/" rel="next" title="Devel">
+                <i class="fa fa-chevron-left"></i> Devel
               </a>
             
           </div>
@@ -395,10 +417,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/03/17/DC-7/" rel="prev" title="DC-7">
-                DC-7 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -521,7 +539,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DC-6"><span class="nav-number">1.</span> <span class="nav-text">DC-6</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP-IP中端口建立连接的原则"><span class="nav-number">1.</span> <span class="nav-text">TCP&#x2F;IP中端口建立连接的原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#全连接扫描（TCP-connect-scan）"><span class="nav-number">2.</span> <span class="nav-text">全连接扫描（TCP connect scan）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#半开放SYN扫描（TCP-SYN-scan）"><span class="nav-number">3.</span> <span class="nav-text">半开放SYN扫描（TCP SYN scan）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#隐蔽扫描"><span class="nav-number">4.</span> <span class="nav-text">隐蔽扫描</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ACK扫描"><span class="nav-number">4.1.</span> <span class="nav-text">ACK扫描</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FIN扫描"><span class="nav-number">4.2.</span> <span class="nav-text">FIN扫描</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-Xmas扫描（圣诞树）"><span class="nav-number">4.3.</span> <span class="nav-text">TCP Xmas扫描（圣诞树）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-NULL扫描"><span class="nav-number">4.4.</span> <span class="nav-text">TCP NULL扫描</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UDP扫描"><span class="nav-number">5.</span> <span class="nav-text">UDP扫描</span></a></li></ol></div>
             
 
           </div>
