@@ -79,12 +79,12 @@
 
 
 
-<meta name="description" content="漏洞成因在未登陆的情况下，可以按下五次shift键启动    sethc程序，同时系统可以在未登录的情况下用system权限打开一个记事本，用记事本打开文件夹，可以将sethc程序换成cmd，进而获取了system权限 复现过程在win7的启动过程中断电再次启动进入恢复界面选择修复在结果的中可以打开一个记事本用记事本打开 C:\windows\system找到sethc重命名，然后把cmd复制一份">
+<meta name="description" content="5次shift获取系统权限">
 <meta property="og:type" content="article">
 <meta property="og:title" content="windows_sethc漏洞_5次shift获取系统权限">
 <meta property="og:url" content="http://yoursite.com/2020/03/22/windows_sethc%E6%BC%8F%E6%B4%9E_5%E6%AC%A1shift%E8%8E%B7%E5%8F%96%E7%B3%BB%E7%BB%9F%E6%9D%83%E9%99%90/index.html">
 <meta property="og:site_name" content="Xingg&#39;s Blog">
-<meta property="og:description" content="漏洞成因在未登陆的情况下，可以按下五次shift键启动    sethc程序，同时系统可以在未登录的情况下用system权限打开一个记事本，用记事本打开文件夹，可以将sethc程序换成cmd，进而获取了system权限 复现过程在win7的启动过程中断电再次启动进入恢复界面选择修复在结果的中可以打开一个记事本用记事本打开 C:\windows\system找到sethc重命名，然后把cmd复制一份">
+<meta property="og:description" content="5次shift获取系统权限">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20200322115202606.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20200322115241359.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
@@ -95,7 +95,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20200322131628443.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20200322132132346.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
 <meta property="article:published_time" content="2020-03-21T16:25:19.000Z">
-<meta property="article:modified_time" content="2020-03-22T06:19:11.235Z">
+<meta property="article:modified_time" content="2020-03-22T06:24:01.374Z">
 <meta property="article:author" content="Xingg">
 <meta property="article:tag" content="vulnhub">
 <meta property="article:tag" content="HTB">
@@ -356,7 +356,10 @@
       
 
       
-        <h1 id="漏洞成因"><a href="#漏洞成因" class="headerlink" title="漏洞成因"></a>漏洞成因</h1><p>在未登陆的情况下，可以按下五次shift键启动    sethc程序，同时系统可以在未登录的情况下用system权限打开一个记事本，用记事本打开文件夹，可以将sethc程序换成cmd，进而获取了system权限</p>
+        <p>5次shift获取系统权限</p>
+<a id="more"></a>
+
+<h1 id="漏洞成因"><a href="#漏洞成因" class="headerlink" title="漏洞成因"></a>漏洞成因</h1><p>在未登陆的情况下，可以按下五次shift键启动    sethc程序，同时系统可以在未登录的情况下用system权限打开一个记事本，用记事本打开文件夹，可以将sethc程序换成cmd，进而获取了system权限</p>
 <h1 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h1><p>在win7的启动过程中断电<br><img src="https://img-blog.csdnimg.cn/20200322115202606.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>再次启动进入恢复界面<br><img src="https://img-blog.csdnimg.cn/20200322115241359.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>选择修复<br><img src="https://img-blog.csdnimg.cn/20200322115301315.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>在结果的中可以打开一个记事本<br><img src="https://img-blog.csdnimg.cn/20200322115336693.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>用记事本打开 C:\windows\system找到sethc重命名，然后把cmd复制一份，命名为sethc<br><img src="https://img-blog.csdnimg.cn/20200322115540304.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>再次启动，按五次shift就成功打开了system权限的cmd<br><img src="https://img-blog.csdnimg.cn/20200322115620133.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">  </p>
 <h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><h2 id="1-关闭五次shift快捷键"><a href="#1-关闭五次shift快捷键" class="headerlink" title="1. 关闭五次shift快捷键"></a>1. 关闭五次shift快捷键</h2><p><img src="https://img-blog.csdnimg.cn/20200322131628443.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <h2 id="2-（实测失效）"><a href="#2-（实测失效）" class="headerlink" title="2. （实测失效）"></a>2. （实测失效）</h2><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>修改sethc的权限，修改后system用户对该文件就没有修改权限了，无法重命名改为cmd<br><img src="https://img-blog.csdnimg.cn/20200322132132346.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>

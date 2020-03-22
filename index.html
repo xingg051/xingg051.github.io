@@ -349,14 +349,14 @@
 
       
         
-          
-            <h1 id="漏洞成因"><a href="#漏洞成因" class="headerlink" title="漏洞成因"></a>漏洞成因</h1><p>在未登陆的情况下，可以按下五次shift键启动    sethc程序，同时系统可以在未登录的情况下用system权限打开一个记事本，用记事本打开文件夹，可以将sethc程序换成cmd，进而获取了system权限</p>
-<h1 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h1><p>在win7的启动过程中断电<br><img src="https://img-blog.csdnimg.cn/20200322115202606.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>再次启动进入恢复界面<br><img src="https://img-blog.csdnimg.cn/20200322115241359.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>选择修复<br><img src="https://img-blog.csdnimg.cn/20200322115301315.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>在结果的中可以打开一个记事本<br><img src="https://img-blog.csdnimg.cn/20200322115336693.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>用记事本打开 C:\windows\system找到sethc重命名，然后把cmd复制一份，命名为sethc<br><img src="https://img-blog.csdnimg.cn/20200322115540304.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>再次启动，按五次shift就成功打开了system权限的cmd<br><img src="https://img-blog.csdnimg.cn/20200322115620133.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">  </p>
-<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><h2 id="1-关闭五次shift快捷键"><a href="#1-关闭五次shift快捷键" class="headerlink" title="1. 关闭五次shift快捷键"></a>1. 关闭五次shift快捷键</h2><p><img src="https://img-blog.csdnimg.cn/20200322131628443.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="2-（实测失效）"><a href="#2-（实测失效）" class="headerlink" title="2. （实测失效）"></a>2. （实测失效）</h2><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>修改sethc的权限，修改后system用户对该文件就没有修改权限了，无法重命名改为cmd<br><img src="https://img-blog.csdnimg.cn/20200322132132346.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="实际情况"><a href="#实际情况" class="headerlink" title="实际情况"></a>实际情况</h2><p>系统正常运行时system确实对sethc没有执行权限了，但是当进入windows修复界面的时候，系统会帮你还原权限，system依然可以执行sethc</p>
-
-          
+          <p>5次shift获取系统权限</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/03/22/windows_sethc%E6%BC%8F%E6%B4%9E_5%E6%AC%A1shift%E8%8E%B7%E5%8F%96%E7%B3%BB%E7%BB%9F%E6%9D%83%E9%99%90/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -506,78 +506,14 @@
 
       
         
-          
-            <p>重定向</p>
-<pre><code>1&gt; 正确输出
-2&gt; 错误输出
-&gt;&gt; 追加
-\&gt; 覆盖</code></pre><p>基本命令</p>
-<pre><code>dir  ==ls
-cls ==clear 清空屏幕
-type ==cat</code></pre><p>文件</p>
-<pre><code>创建文件
-1. echo
-2. copy con 文件名
-内容
-ctrl+z
- del 删除文件 /q 不再询问</code></pre><p>目录</p>
-<pre><code>md 创建目录
-rd   move directory 删除空文件夹
-rd /s 删除非空文件夹  /q 不再询问
-rd /s /q == rm -rf
-切换目录
-cd
-切换磁盘
-    c:\Users&gt;d:
-    D:\&gt;c:</code></pre><p>复制移动文件</p>
-<pre><code>copy==cp
-move==mv
-ren 重命名</code></pre><p>修改文件属性 </p>
-<pre><code>atttrib
-+h 隐藏hiden
-+s 受保护系统性
-+a 独有</code></pre><p>快速生成空文件</p>
-<pre><code>fsutil file createnew c:\windows\test.ini 409600000</code></pre><p>修改关联性</p>
-<pre><code>assoc .txt=exefile  把.txt文件用exe打开，改回来txtfile</code></pre><p>关机</p>
-<pre><code>shutdown
--s 关机
--r 重启
--f 强制
--t 100 时间100秒倒计时
--a 取消一切计时
--c &quot;hello&quot; 提示
--l 注销</code></pre><p>批处理脚本 .bat 脚本=.sh</p>
-<pre><code>@echo off 不显示执行过程
-pause 
-颜色
-    color 0a   0背景颜色 a字体颜色
-    color  ?  显示所有颜色
-区块
-    : 冒号分割 
-    goto跳转到另一个区块
-变量 
-    %a%
-    set p/ a=请输入a的值：  设置变量a的值
-逻辑判断
-    if  a==b xxx </code></pre><p>查看端口</p>
-<pre><code>netstat -ano
-netstat -ano | findstr 8080  
-findstr == grep</code></pre><p>结束进程</p>
-<pre><code>taskkill 
-/im 指定进程
-/pid 
-/f 强制</code></pre><p>用户</p>
-<pre><code>net user 查看用户列表
-net user simon 查看simon的详细信息
-net user simon passwd 更改simon的密码
-net user tom 123 /add 创建tom用户，密码123
-net user tom /del 删除tom
-net user tom /active:no 禁用用户 开启yes</code></pre><p> 组</p>
-<pre><code>net localgroup 查看组表
-net localgroup administrators 查看管理员组
-net localgroup administrators tom /add 管理员组添加tom
-net localgroup administrators tom /del 删除</code></pre>
-          
+          <p>windows常用命令（文件，目录，用户，组，进程）</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/03/22/windows_cmd_dos%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
