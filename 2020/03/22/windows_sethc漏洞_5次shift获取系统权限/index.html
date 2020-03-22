@@ -79,27 +79,23 @@
 
 
 
-<meta name="description" content="DC-2Author:Xingg靶机下载:vulnhub-DC2wpscan搜集信息进入后台，sudo git权限 more less提权root">
+<meta name="description" content="漏洞成因在未登陆的情况下，可以按下五次shift键启动    sethc程序，同时系统可以在未登录的情况下用system权限打开一个记事本，用记事本打开文件夹，可以将sethc程序换成cmd，进而获取了system权限 复现过程在win7的启动过程中断电再次启动进入恢复界面选择修复在结果的中可以打开一个记事本用记事本打开 C:\windows\system找到sethc重命名，然后把cmd复制一份">
 <meta property="og:type" content="article">
-<meta property="og:title" content="DC-2">
-<meta property="og:url" content="http://yoursite.com/2020/03/17/DC-2/index.html">
+<meta property="og:title" content="windows_sethc漏洞_5次shift获取系统权限">
+<meta property="og:url" content="http://yoursite.com/2020/03/22/windows_sethc%E6%BC%8F%E6%B4%9E_5%E6%AC%A1shift%E8%8E%B7%E5%8F%96%E7%B3%BB%E7%BB%9F%E6%9D%83%E9%99%90/index.html">
 <meta property="og:site_name" content="Xingg&#39;s Blog">
-<meta property="og:description" content="DC-2Author:Xingg靶机下载:vulnhub-DC2wpscan搜集信息进入后台，sudo git权限 more less提权root">
+<meta property="og:description" content="漏洞成因在未登陆的情况下，可以按下五次shift键启动    sethc程序，同时系统可以在未登录的情况下用system权限打开一个记事本，用记事本打开文件夹，可以将sethc程序换成cmd，进而获取了system权限 复现过程在win7的启动过程中断电再次启动进入恢复界面选择修复在结果的中可以打开一个记事本用记事本打开 C:\windows\system找到sethc重命名，然后把cmd复制一份">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101213638648.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101212927985.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101213208553.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101213240355.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101213255692.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101213717951.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101213854782.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101214000603.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101214244547.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101214346894.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101214510897.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200101214612543.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
-<meta property="article:published_time" content="2020-03-16T16:27:19.000Z">
-<meta property="article:modified_time" content="2020-03-17T14:07:23.752Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200322115202606.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200322115241359.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200322115301315.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200322115336693.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200322115540304.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200322115620133.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200322131628443.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200322132132346.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-03-21T16:25:19.000Z">
+<meta property="article:modified_time" content="2020-03-22T06:19:11.235Z">
 <meta property="article:author" content="Xingg">
 <meta property="article:tag" content="vulnhub">
 <meta property="article:tag" content="HTB">
@@ -107,7 +103,7 @@
 <meta property="article:tag" content="web安全">
 <meta property="article:tag" content="渗透测试">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200101213638648.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200322115202606.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70">
 
 
 
@@ -137,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/03/17/DC-2/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/03/22/windows_sethc漏洞_5次shift获取系统权限/"/>
 
 
 
 
 
-  <title>DC-2 | Xingg's Blog</title>
+  <title>windows_sethc漏洞_5次shift获取系统权限 | Xingg's Blog</title>
   
 
 
@@ -260,7 +256,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/17/DC-2/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/22/windows_sethc%E6%BC%8F%E6%B4%9E_5%E6%AC%A1shift%E8%8E%B7%E5%8F%96%E7%B3%BB%E7%BB%9F%E6%9D%83%E9%99%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Xingg">
@@ -277,7 +273,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">DC-2</h1>
+          <h1 class="post-title" itemprop="name headline">windows_sethc漏洞_5次shift获取系统权限</h1>
         
 
         <div class="post-meta">
@@ -289,8 +285,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-17T00:27:19+08:00">
-                2020-03-17
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-22T00:25:19+08:00">
+                2020-03-22
               </time>
             
 
@@ -312,8 +308,19 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9D%B6%E6%9C%BA-vulnhub/" itemprop="url" rel="index">
-                    <span itemprop="name">靶机-vulnhub</span>
+                  <a href="/categories/windows/" itemprop="url" rel="index">
+                    <span itemprop="name">windows</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/windows/%E6%BC%8F%E6%B4%9E/" itemprop="url" rel="index">
+                    <span itemprop="name">漏洞</span>
                   </a>
                 </span>
 
@@ -349,62 +356,11 @@
       
 
       
-        <h1 id="DC-2"><a href="#DC-2" class="headerlink" title="DC-2"></a>DC-2</h1><p><strong>Author:Xingg</strong><br>靶机下载:<a href="https://www.vulnhub.com/entry/dc-2,311/" target="_blank" rel="noopener">vulnhub-DC2</a><br>wpscan搜集信息进入后台，sudo git权限 more less提权root</p>
-<a id="more"></a>
-
-<p>nmap扫描<br><img src="https://img-blog.csdnimg.cn/20200101213638648.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>直接进入80端口 作者给出的提示 让我们使用cewl  </p>
-<p><img src="https://img-blog.csdnimg.cn/20200101212927985.png" alt="在这里插入图片描述"></p>
-<p>然后网站上有很多乱码的字母 应该是密码了<br>cewl是一个密码攻击工具，能够爬取网页上的所有单词生成一个列表  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cewl http://dc-2 -w dc2.txt</span><br></pre></td></tr></table></figure>
-
-<p>网站是WordPress搭建的<br>wpscan扫描第一波没有可以用漏洞 那就枚举用户  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wpscan --url http://dc-2 --enumerate u</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/20200101213208553.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>发现了三个用户 admin  jerry  tom<br>然后用刚才cewl生成的字典爆破用户 得到了jerry和tom的密码  </p>
-<p><img src="https://img-blog.csdnimg.cn/20200101213240355.png" alt="在这里插入图片描述"></p>
-<p><img src="https://img-blog.csdnimg.cn/20200101213255692.png" alt="在这里插入图片描述"></p>
-<table>
-<thead>
-<tr>
-<th>Username</th>
-<th>Password</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>tom</td>
-<td>parturient</td>
-</tr>
-<tr>
-<td>jerry</td>
-<td>adipiscing</td>
-</tr>
-</tbody></table>
-<p>用jerry的账号进了wordpress后台 发现了作者给的提示  </p>
-<p><img src="https://img-blog.csdnimg.cn/20200101213717951.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>another way想到刚才nmap还跑出来一个ssh端口 尝试连接 用tom的账号进了  </p>
-<p><img src="https://img-blog.csdnimg.cn/20200101213854782.png" alt="在这里插入图片描述"></p>
-<p>但是却被限制使用cat命令  </p>
-<p><img src="https://img-blog.csdnimg.cn/20200101214000603.png" alt="在这里插入图片描述"></p>
-<p>尝试vi提权  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi </span><br><span class="line">:<span class="built_in">set</span> shell=/bin/sh</span><br><span class="line">:shel</span><br></pre></td></tr></table></figure>
-
-<p>但是发现还是不能使用cat命令<br>我们再设置PATH变量  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:/usr/<span class="built_in">local</span>/sbin:/usr/<span class="built_in">local</span>/bin:/usr/sbin:/usr/bin:/sbin:/bin</span><br></pre></td></tr></table></figure>
-
-<p>然后就能使用cat命令了  </p>
-<p><img src="https://img-blog.csdnimg.cn/20200101214244547.png" alt="在这里插入图片描述"></p>
-<p>提示说su for jerry<br>那就执行命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">su jerry</span><br><span class="line">adipiscing</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/20200101214346894.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>作者提示我们git<br>果然查看sudo -l 可以执行git</p>
-<p><img src="https://img-blog.csdnimg.cn/20200101214510897.png" alt="在这里插入图片描述">  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo git -p <span class="built_in">help</span> config </span><br><span class="line">!/bin/sh</span><br></pre></td></tr></table></figure>
-
-<p>此处用到的是less more的shell提权</p>
-<p><img src="https://img-blog.csdnimg.cn/20200101214612543.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"> </p>
-<p>欢迎师傅们指点</p>
-<p>邮箱：<a href="mailto:xingg051@163.com">xingg051@163.com</a></p>
+        <h1 id="漏洞成因"><a href="#漏洞成因" class="headerlink" title="漏洞成因"></a>漏洞成因</h1><p>在未登陆的情况下，可以按下五次shift键启动    sethc程序，同时系统可以在未登录的情况下用system权限打开一个记事本，用记事本打开文件夹，可以将sethc程序换成cmd，进而获取了system权限</p>
+<h1 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h1><p>在win7的启动过程中断电<br><img src="https://img-blog.csdnimg.cn/20200322115202606.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>再次启动进入恢复界面<br><img src="https://img-blog.csdnimg.cn/20200322115241359.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>选择修复<br><img src="https://img-blog.csdnimg.cn/20200322115301315.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>在结果的中可以打开一个记事本<br><img src="https://img-blog.csdnimg.cn/20200322115336693.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>用记事本打开 C:\windows\system找到sethc重命名，然后把cmd复制一份，命名为sethc<br><img src="https://img-blog.csdnimg.cn/20200322115540304.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>再次启动，按五次shift就成功打开了system权限的cmd<br><img src="https://img-blog.csdnimg.cn/20200322115620133.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">  </p>
+<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><h2 id="1-关闭五次shift快捷键"><a href="#1-关闭五次shift快捷键" class="headerlink" title="1. 关闭五次shift快捷键"></a>1. 关闭五次shift快捷键</h2><p><img src="https://img-blog.csdnimg.cn/20200322131628443.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="2-（实测失效）"><a href="#2-（实测失效）" class="headerlink" title="2. （实测失效）"></a>2. （实测失效）</h2><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>修改sethc的权限，修改后system用户对该文件就没有修改权限了，无法重命名改为cmd<br><img src="https://img-blog.csdnimg.cn/20200322132132346.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NjEyODYxNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="实际情况"><a href="#实际情况" class="headerlink" title="实际情况"></a>实际情况</h2><p>系统正常运行时system确实对sethc没有执行权限了，但是当进入windows修复界面的时候，系统会帮你还原权限，system依然可以执行sethc</p>
 
       
     </div>
@@ -429,8 +385,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/03/17/DC-9/" rel="next" title="DC-9">
-                <i class="fa fa-chevron-left"></i> DC-9
+              <a href="/2020/03/22/windows_cmd_dos%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" rel="next" title="windows_cmd_dos常用命令">
+                <i class="fa fa-chevron-left"></i> windows_cmd_dos常用命令
               </a>
             
           </div>
@@ -438,10 +394,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/03/17/DC-3/" rel="prev" title="DC-3">
-                DC-3 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -564,7 +516,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DC-2"><span class="nav-text">DC-2</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#漏洞成因"><span class="nav-text">漏洞成因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#复现过程"><span class="nav-text">复现过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决方法"><span class="nav-text">解决方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-关闭五次shift快捷键"><span class="nav-text">1. 关闭五次shift快捷键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-（实测失效）"><span class="nav-text">2. （实测失效）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思路"><span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实际情况"><span class="nav-text">实际情况</span></a></li></ol></li></ol></div>
             
 
           </div>
